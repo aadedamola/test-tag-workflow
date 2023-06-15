@@ -8,6 +8,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      DAY_OF_WEEK: Monday
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -25,7 +28,7 @@ jobs:
           # Same as above except indicating a minor change, supports regular expressions wrapped with '/'
           minor_pattern: "(MINOR-RELEASE)"
           # A string to determine the format of the version output
-          version_format: "${major}.${minor}.${patch}-prerelease${increment}"
+          version_format: "v${major}.${minor}.${patch}-prerelease${increment}"
           # If this is set to true, *every* commit will be treated as a new version.
           bump_each_commit: false
           # If true, the body of commits will also be searched for major/minor patterns to determine the version type.
