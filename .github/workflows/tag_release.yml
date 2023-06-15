@@ -9,7 +9,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      DAY_OF_WEEK: Monday
+      PRE_RELEASE_MODE: true
 
     steps:
       - name: Checkout code
@@ -35,12 +35,12 @@ jobs:
           search_commit_body: false
           # Prevents pre-v1.0.0 version from automatically incrementing the major version.
           # If enabled, when the major version is 0, major releases will be treated as minor and minor as patch. Note that the version_type output is unchanged.
-          enable_prerelease_mode: true
+          enable_prerelease_mode: $PRE_RELEASE_MODE
       - name: Tag and Release
         uses: avakar/tag-and-release@v1
         with:
           tag_name: ${{ steps.version.outputs.version }}
-          prerelease: true
+          prerelease: $PRE_RELEASE_MODE
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
